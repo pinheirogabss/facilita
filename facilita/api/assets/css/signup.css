@@ -1,0 +1,197 @@
+/* Reset básico */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  background-color: #f0f0f0;
+}
+
+header {
+  background-color: #c286ba;
+  display: flex;
+  align-items: center;
+  padding: 1rem 5%;
+  gap: 1rem;
+}
+
+.logo-texto {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 2.8rem;
+  color: #4f744a;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  flex-grow: 1;
+}
+
+.logo-imagem {
+  width: 100px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Container do cadastro */
+.container-cadastro {
+  background-color: #f9f9f9;
+  padding: 3rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto 3rem;
+  text-align: center;
+  color: #4f744a;
+}
+
+.container-cadastro h1 {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 2.8rem;
+  color: #4f744a;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Formulário em 2 colunas */
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.5rem;
+}
+
+/* Agrupamento label + input */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 0.2rem;
+}
+
+.input-group label {
+  color: #9e6897;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-left: 0.2rem;
+}
+
+.input-group input {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #9e6897;
+  border-radius: 8px;
+  font-family: 'Raleway', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #4f744a;
+  box-shadow: 0 0 8px 2px rgba(79, 116, 74, 0.5);
+  outline: none;
+}
+
+.input-group input:focus + label,
+.input-group input:focus ~ label {
+  font-size: 1.1rem;
+  color: #4f744a;
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+/* Botão ocupa 2 colunas */
+form button {
+  grid-column: span 2;
+  background: linear-gradient(90deg, #4f744a, #7ba964);
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 8px rgba(79, 116, 74, 0.3);
+}
+
+form button:hover {
+  background: linear-gradient(90deg, #3d5936, #5e7c4c);
+  box-shadow: 0 6px 12px rgba(62, 88, 54, 0.6);
+}
+
+.link-login {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.link-login a {
+  color: #4f744a;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.link-login a:hover {
+  text-decoration: underline;
+  color: #7ba964;
+}
+
+/* Seção fale conosco */
+.fale-conosco {
+  padding: 3rem 5%;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  color: #4f744a;
+  font-family: 'Raleway', sans-serif;
+}
+
+.fale-conosco h2 {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 2.2rem;
+  color: #9e6897;
+  margin-bottom: 1rem;
+}
+
+.fale-conosco p {
+  font-size: 2 rem;
+  color: #666;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  form button {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 450px) {
+  .container-cadastro {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+
+  .container-cadastro h1 {
+    font-size: 2rem;
+  }
+
+  header {
+    padding: 1rem 2rem;
+  }
+
+  .logo-texto {
+    font-size: 2rem;
+  }
+
+  .logo-imagem {
+    width: 50px;
+    height: 50px;
+  }
+}

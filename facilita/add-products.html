@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerenciamento de Insumos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Raleway&display=swap" rel="stylesheet" />
+  <!-- Ícones Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link href="assets/css/add-products.css" rel="stylesheet" />
+  <style>
+ 
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo-texto">Facilita</h1>
+    <nav>
+      <span>Bem-vindo, Gabriella!</span>
+    </nav>
+  </header>
+
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="profile-section">
+        <div class="profile-photo">GA</div>
+        <h2 class="profile-name">Gabriella Pinheiro</h2>
+        <p class="profile-role">Proprietário</p>
+        <a href="cafe.html" class="sidebar-btn">Dashboard</a>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Sistema</h3>
+        <a href="add-employees.html" class="sidebar-btn">Funcionários</a>
+        <a href="add-products.html" class="sidebar-btn">Produtos</a>
+        <a href="add-orders.html" class="sidebar-btn">Pedidos</a>
+        <a href="add-tasks.html" class="sidebar-btn">Tarefas</a>
+        <a href="index.html" class="sidebar-btn">Sair</a>
+      </div>
+    </aside>
+
+
+  <main class="dashboard-container">
+    <div class="section-header">
+      <h2 class="titulo-secao">Gerenciamento de Produtos</h2>
+      <button class="action-btn" id="add-insumo-btn">
+        <i class="fas fa-plus"></i> Novo Produto
+      </button>
+    </div>
+
+    <!-- Cards de Estatísticas -->
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <div class="stat-icon"><i class="fas fa-boxes"></i></div>
+        <h3 class="stat-number">2</h3>
+        <p class="stat-label">Total de Produtos</p>
+      </div>
+      <div class="stat-card low-stock">
+        <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <h3 class="stat-number">1</h3>
+        <p class="stat-label">Estoque Baixo</p>
+      </div>
+      <div class="stat-card out-stock">
+        <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+        <h3 class="stat-number">0</h3>
+        <p class="stat-label">Sem Estoque</p>
+      </div>
+    </div>
+
+    <div class="search-filter">
+      <input type="text" class="search-input" placeholder="Buscar produto...">
+      <button class="search-btn">
+        <i class="fas fa-search"></i>
+      </button>
+      <select class="filter-select">
+        <option value="all">Todas as categorias</option>
+        <option value="doces">Doce</option>
+        <option value="salgados">Salgado</option>
+        <option value="bebida">Bebida</option>
+      </select>
+      <select class="filter-select">
+        <option value="all">Todos os status</option>
+        <option value="high">Estoque Alto</option>
+        <option value="low">Estoque Baixo</option>
+        <option value="out">Sem Estoque</option>
+      </select>
+    </div>
+
+    <table class="insumos-table">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Categoria</th>
+          <th>Quantidade</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="insumo-info">
+              <div>Capuccino</div>
+            </div>
+          </td>
+          <td>Bebida</td>
+          <td>5</td>
+          <td><span class="stock-status status-low">Estoque Baixo</span></td>
+          <td class="actions-cell">
+            <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+            <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="insumo-info">
+              <div>Brownie</div>
+            </div>
+          </td>
+          <td>Doce</td>
+          <td>2</td>
+          <td><span class="stock-status status-high">Estoque Alto</span></td>
+          <td class="actions-cell">
+            <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+            <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+          </td>
+        </tr>
+    
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Modal de Novo Insumo -->
+  <div class="modal-overlay" id="insumo-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Adicionar Novo Produto</h3>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <form id="insumo-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Nome do Produto</label>
+            <input type="text" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" required>
+              <option value="">Selecione...</option>
+              <option value="bebidas">Bebida</option>
+              <option value="salgado">Salgado</option>
+              <option value="doce">Doce</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quantidade</label>
+            <input type="number" class="form-input" min="0" step="0.01" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Estoque Mínimo</label>
+            <input type="number" class="form-input" min="0" step="0.01" required>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" id="cancel-modal">Cancelar</button>
+          <button type="submit" class="btn-save">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Modal functionality
+    const addInsumoBtn = document.getElementById('add-insumo-btn');
+    const modal = document.getElementById('insumo-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const cancelModalBtn = document.getElementById('cancel-modal');
+    const form = document.getElementById('insumo-form');
+
+    addInsumoBtn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    cancelModalBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Insumo adicionado com sucesso!');
+      modal.style.display = 'none';
+      form.reset();
+    });
+
+    // Edit and delete functionality
+    document.querySelectorAll('.edit-icon').forEach(icon => {
+      icon.addEventListener('click', () => {
+        alert('Funcionalidade de edição será implementada');
+      });
+    });
+
+    document.querySelectorAll('.delete-icon').forEach(icon => {
+      icon.addEventListener('click', () => {
+        if (confirm('Tem certeza que deseja excluir este insumo?')) {
+          alert('Insumo excluído com sucesso!');
+        }
+      });
+    });
+
+    // Search functionality
+    const searchInput = document.querySelector('.search-input');
+    const searchBtn = document.querySelector('.search-btn');
+
+    searchBtn.addEventListener('click', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      alert(`Buscando por: "${searchTerm}"`);
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const searchTerm = searchInput.value.toLowerCase();
+        alert(`Buscando por: "${searchTerm}"`);
+      }
+    });
+  </script>
+</body>
+</html>

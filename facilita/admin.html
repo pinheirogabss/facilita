@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard do Administrador</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Raleway&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo-texto">Facilita</h1>
+    <nav>
+      <span>Bem-vindo, Admin!</span>
+    </nav>
+  </header>
+
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="profile-section">
+        <div class="profile-photo">AD</div>
+        <h2 class="profile-name">Admin Sistema</h2>
+        <p class="profile-role">Administrador</p>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Dados Pessoais</h3>
+        <p><strong>Email:</strong> admin@facilita.com.br</p>
+      </div>
+
+      <div class="sidebar-section">
+        <a href="admin-config.html" class="sidebar-btn">Editar perfil</a>
+        <a href="index.html" class="sidebar-btn">Sair</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-container">
+      <h2 class="titulo-secao">Painel Administrativo - Sistema Facilita</h2>
+
+      <!-- Estatísticas rápidas -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 class="stat-number">1</h3>
+          <p class="stat-label">Cafeterias Ativas</p>
+        </div>
+        <div class="stat-card">
+          <h3 class="stat-number">4</h3>
+          <p class="stat-label">Usuários Totais</p>
+        </div>
+      </div>
+
+      <!-- Menu de gerenciamento -->
+      <div class="grid-cards">
+        <a href="admin-cafeterias.html" class="card">
+          <h3>Gerenciar Cafeterias</h3>
+          <p>Visualize cafeterias cadastradas.</p>
+        </a>
+
+        <a href="admin-usuarios.html" class="card">
+          <h3>Usuários do Sistema</h3>
+          <p>Gerencie contas de proprietários e funcionários.</p>
+        </a>
+
+        <a href="admin-assinaturas.html" class="card">
+          <h3>Assinaturas & Pagamentos</h3>
+          <p>Controle planos, cobranças e status de pagamento.</p>
+        </a>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerenciamento de Funcionários</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Raleway&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/add-employees.css">
+  <style>
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo-texto">Facilita</h1>
+    <nav>
+      <span>Bem-vindo, Gabriella!</span>
+    </nav>
+  </header>
+
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="profile-section">
+        <div class="profile-photo">GA</div>
+        <h2 class="profile-name">Gabriella Pinheiro</h2>
+        <p class="profile-role">Proprietário</p>
+        <a href="cafe.html" class="sidebar-btn">Dashboard</a>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Sistema</h3>
+        <a href="add-employees.html" class="sidebar-btn">Funcionários</a>
+        <a href="add-products.html" class="sidebar-btn">Produtos</a>
+        <a href="add-orders.html" class="sidebar-btn">Pedidos</a>
+        <a href="add-tasks.html" class="sidebar-btn">Tarefas</a>
+        <a href="index.html" class="sidebar-btn">Sair</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-container">
+      <div class="section-header">
+        <h2 class="titulo-secao">Gerenciamento de Funcionários</h2>
+        <button class="action-btn" id="add-employee-btn">
+          <i class="fas fa-plus"></i> Novo Funcionário
+        </button>
+      </div>
+
+      <div class="search-filter">
+        <input type="text" class="search-input" placeholder="Buscar funcionário...">
+        <button class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <table class="employees-table">
+        <thead>
+          <tr>
+            <th>Funcionário</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="employee-info">
+                <div class="employee-photo">AM</div>
+                <div>Files</div>
+              </div>
+            </td>
+            <td>pedro@gmail.com</td>
+            <td>(51) 91234-5678</td>
+            <td class="actions-cell">
+              <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+              <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="employee-info">
+                <div class="employee-photo">JO</div>
+                <div>Jhon</div>
+              </div>
+            </td>
+            <td>joao@gmail.com</td>
+            <td>(51) 99876-5432</td>
+            <td class="actions-cell">
+              <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+              <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="employee-info">
+                <div class="employee-photo">CA</div>
+                <div>Luisa</div>
+              </div>
+            </td>
+            <td>luisa@gmail.com</td>
+            <td>(11) 98888-7777</td>
+            <td class="actions-cell">
+              <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+              <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+            </td>
+          </tr>
+        
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- Modal de Novo Funcionário -->
+  <div class="modal-overlay" id="employee-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Adicionar Novo Funcionário</h3>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <form id="employee-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone</label>
+            <input type="tel" class="form-input" required>
+          </div>
+         <div class="form-group">
+            <label class="form-label">Cargo</label>
+            <select class="form-select" required>
+              <option value="">Selecione...</option>
+              <option value="barista">Barista</option>
+              <option value="caixa">Caixa</option>
+             <option value="cozinheiro">Cozinheiro(a)</option>
+              <option value="gerente">Gerente</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Senha</label>
+            <input type="password" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" id="cancel-modal">Cancelar</button>
+          <button type="submit" class="btn-save">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

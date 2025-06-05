@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerenciamento de Funcionários</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Raleway&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    /* Reset básico e fonte */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Raleway', sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: #c286ba;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .logo-texto {
+      font-family: 'Cal Sans', sans-serif;
+      font-size: 2rem;
+      color: #4f744a;
+      margin: 0;
+    }
+
+    nav span {
+      color: #fff;
+      margin-right: 1rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Layout de conteúdo */
+    .content-wrapper {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Barra lateral */
+    .sidebar {
+      width: 280px;
+      background-color: #fff;
+      border-right: 2px solid #c286ba;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #c286ba;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .profile-name {
+      font-family: 'Cal Sans', sans-serif;
+      font-size: 1.2rem;
+      color: #4f744a;
+      margin: 0;
+    }
+
+    .profile-role {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sidebar-section h3 {
+      font-family: 'Cal Sans', sans-serif;
+      color: #4f744a;
+      margin: 0;
+      font-size: 1.1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .sidebar-section p {
+      margin: 0.25rem 0;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    .sidebar-section p strong {
+      color: #4f744a;
+    }
+
+    .sidebar-btn {
+      padding: 0.75rem 1rem;
+      background-color: #f7f0f6;
+      color: #4f744a;
+      border: 1px solid #c286ba;
+      border-radius: 6px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .sidebar-btn:hover {
+      background-color: #c286ba;
+      color: white;
+    }
+
+    /* Container principal */
+    .dashboard-container {
+      flex: 1;
+      padding: 2rem 5%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Título da seção */
+    .titulo-secao {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    /* Header da seção com botões de ação */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .action-btn {
+      padding: 0.75rem 1.25rem;
+      background-color: #4f744a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background-color: #3c5a39;
+    }
+
+    /* Tabela de funcionários */
+    .employees-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .employees-table th {
+      background-color: #f7f0f6;
+      color: #4f744a;
+      text-align: left;
+      padding: 1rem;
+      font-family: 'Cal Sans', sans-serif;
+    }
+
+    .employees-table td {
+      padding: 1rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .employee-status {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .status-active {
+      background-color: #e0f2e9;
+      color: #4f744a;
+    }
+
+    .status-inactive {
+      background-color: #f2e0e0;
+      color: #a73636;
+    }
+
+    .status-pending {
+      background-color: #f2f0e0;
+      color: #8a7a36;
+    }
+
+    .actions-cell {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.2s;
+    }
+
+    .edit-icon {
+      background-color: #4f744a;
+    }
+
+    .edit-icon:hover {
+      background-color: #3c5a39;
+    }
+
+    .delete-icon {
+      background-color: #a73636;
+    }
+
+    .delete-icon:hover {
+      background-color: #8a2828;
+    }
+
+    .employee-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #c286ba;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .employee-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Modal de novo funcionário */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background-color: white;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title {
+      font-family: 'Cal Sans', sans-serif;
+      color: #4f744a;
+      margin: 0;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #4f744a;
+      font-weight: bold;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: 'Raleway', sans-serif;
+      background-color: white;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-cancel {
+      padding: 0.75rem 1.25rem;
+      background-color: #f0f0f0;
+      color: #666;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-save {
+      padding: 0.75rem 1.25rem;
+      background-color: #4f744a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .search-filter {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px 0 0 6px;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .search-btn {
+      padding: 0.75rem 1.25rem;
+      background-color: #c286ba;
+      color: white;
+      border: none;
+      border-radius: 0 6px 6px 0;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-select {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      background-color: white;
+      min-width: 150px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #c286ba;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .employees-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo-texto">Facilita</h1>
+    <nav>
+      <span>Bem-vindo, Gabriella!</span>
+    </nav>
+  </header>
+
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="profile-section">
+        <div class="profile-photo">GA</div>
+        <h2 class="profile-name">Gabriella Pinheiro</h2>
+        <p class="profile-role">Proprietário</p>
+        <a href="#" class="sidebar-btn">Dashboard</a>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Sistema</h3>
+        <a href="funcionarios.html" class="sidebar-btn">Funcionários</a>
+        <a href="insumos.html" class="sidebar-btn">Insumos</a>
+        <a href="receitas.html" class="sidebar-btn">Receitas</a>
+        <a href="tarefas.html" class="sidebar-btn">Tarefas</a>
+        <a href="#" class="sidebar-btn">Configurações</a>
+        <a href="#" class="sidebar-btn">Suporte</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-container">
+      <div class="section-header">
+        <h2 class="titulo-secao">Gerenciamento de Funcionários</h2>
+        <button class="action-btn" id="add-employee-btn">
+          <i class="fas fa-plus"></i> Novo Funcionário
+        </button>
+      </div>
+
+      <div class="search-filter">
+        <input type="text" class="search-input" placeholder="Buscar funcionário...">
+        <button class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+        <select class="filter-select">
+          <option value="all">Todos os status</option>
+          <option value="active">Ativos</option>
+          <option value="inactive">Inativos</option>
+          <option value="pending">Pendentes</option>
+        </select>
+      </div>
+
+      <table class="employees-table">
+        <thead>
+          <tr>
+            <th>Funcionário</th>
+            <th>Cargo</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="employee-info">
+                <div class="employee-photo">AM</div>
+                <div>Ana Maria Silva</div>
+              </div>
+            </td>
+            <td>Barista</td>
+            <td>ana.silva@gmail.com</td>
+            <td>(11) 91234-5678</td>
+            <td><span class="employee-status status-active">Ativo</span></td>
+            <td class="actions-cell">
+              <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+              <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="employee-info">
+                <div class="employee-photo">JO</div>
+                <div>João Oliveira</div>
+              </div>
+            </td>
+            <td>Caixa</td>
+            <td>joao.oliveira@gmail.com</td>
+            <td>(11) 99876-5432</td>
+            <td><span class="employee-status status-active">Ativo</span></td>
+            <td class="actions-cell">
+              <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+              <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="employee-info">
+                <div class="employee-photo">CA</div>
+                <div>Carla Almeida</div>
+              </div>
+            </td>
+            <td>Garçonete</td>
+            <td>carla.almeida@gmail.com</td>
+            <td>(11) 98888-7777</td>
+            <td><span class="employee-status status-pending">Pendente</span></td>
+            <td class="actions-cell">
+              <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+              <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="employee-info">
+                <div class="employee-photo">RS</div>
+                <div>Rafael Santos</div>
+              </div>
+            </td>
+            <td>Cozinheiro</td>
+            <td>rafael.santos@gmail.com</td>
+            <td>(11) 97777-6666</td>
+            <td><span class="employee-status status-inactive">Inativo</span></td>
+            <td class="actions-cell">
+              <div class="action-icon edit-icon"><i class="fas fa-edit"></i></div>
+              <div class="action-icon delete-icon"><i class="fas fa-trash"></i></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- Modal de Novo Funcionário -->
+  <div class="modal-overlay" id="employee-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Adicionar Novo Funcionário</h3>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <form id="employee-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sobrenome</label>
+            <input type="text" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone</label>
+            <input type="tel" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cargo</label>
+            <select class="form-select" required>
+              <option value="">Selecione...</option>
+              <option value="barista">Barista</option>
+              <option value="caixa">Caixa</option>
+              <option value="garcom">Garçom/Garçonete</option>
+              <option value="cozinheiro">Cozinheiro(a)</option>
+              <option value="supervisor">Supervisor(a)</option>
+              <option value="gerente">Gerente</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Data de Início</label>
+            <input type="date" class="form-input" required>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Senha Temporária</label>
+            <input type="password" class="form-input" required>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Status</label>
+            <select class="form-select" required>
+              <option value="active">Ativo</option>
+              <option value="inactive">Inativo</option>
+              <option value="pending">Pendente</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Observações</label>
+            <textarea class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" id="cancel-modal">Cancelar</button>
+          <button type="submit" class="btn-save">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Script para controlar o modal
+    const addEmployeeBtn = document.getElementById('add-employee-btn');
+    const employeeModal = document.getElementById('employee-modal');
+    const closeModal = document.getElementById('close-modal');
+    const cancelModal = document.getElementById('cancel-modal');
+
+    addEmployeeBtn.addEventListener('click', () => {
+      employeeModal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+      employeeModal.style.display = 'none';
+    });
+
+    cancelModal.addEventListener('click', () => {
+      employeeModal.style.display = 'none';
+    });
+
+    // Fechar modal ao clicar fora dele
+    employeeModal.addEventListener('click', (e) => {
+      if (e.target === employeeModal) {
+        employeeModal.style.display = 'none';
+      }
+    });
+
+    // Evitar recarregamento da página ao enviar o formulário
+    document.getElementById('employee-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Funcionário adicionado com sucesso!');
+      employeeModal.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
